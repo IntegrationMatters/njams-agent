@@ -57,8 +57,12 @@ func (s *SystemStats) Gather(acc telegraf.Accumulator) error {
 		s.Log.Debug(err.Error())
 	}
 
+	// hard code njams type
+	tags := make(map[string]string)
+	tags["type"] = "server"
+
 	now := time.Now()
-	acc.AddGauge("system", fields, nil, now)
+	acc.AddGauge("system", fields, tags, now)
 
 	uptime, err := host.Uptime()
 	if err != nil {
@@ -70,7 +74,7 @@ func (s *SystemStats) Gather(acc telegraf.Accumulator) error {
 	}, nil, now)
 	acc.AddFields("system", map[string]interface{}{
 		"uptime_format": formatUptime(uptime),
-	}, nil, now)
+	}, tags, now)
 
 	return nil
 }

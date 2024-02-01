@@ -106,6 +106,10 @@ func (d *DiskIO) Gather(acc telegraf.Accumulator) error {
 			"merged_reads":     io.MergedReadCount,
 			"merged_writes":    io.MergedWriteCount,
 		}
+
+		// hard code njams type
+		tags["type"] = "server"
+		
 		acc.AddCounter("diskio", fields, tags)
 	}
 

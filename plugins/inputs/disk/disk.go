@@ -91,6 +91,10 @@ func (ds *DiskStats) Gather(acc telegraf.Accumulator) error {
 			"inodes_used":         du.InodesUsed,
 			"inodes_used_percent": inodesUsedPercent,
 		}
+
+		// hard code njams type
+		tags["type"] = "server"
+		
 		acc.AddGauge("disk", fields, tags)
 	}
 

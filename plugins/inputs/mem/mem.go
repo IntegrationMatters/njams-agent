@@ -94,7 +94,11 @@ func (ms *MemStats) Gather(acc telegraf.Accumulator) error {
 		fields["write_back"] = vm.WriteBack
 	}
 
-	acc.AddGauge("mem", fields, nil)
+	// hard code njams type
+	tags := make(map[string]string)
+	tags["type"] = "server"
+
+	acc.AddGauge("mem", fields, tags)
 
 	return nil
 }

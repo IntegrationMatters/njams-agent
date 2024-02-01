@@ -37,8 +37,13 @@ func (ss *SwapStats) Gather(acc telegraf.Accumulator) error {
 		"in":  swap.Sin,
 		"out": swap.Sout,
 	}
-	acc.AddGauge("swap", fieldsG, nil)
-	acc.AddCounter("swap", fieldsC, nil)
+
+	// hard code njams type
+	tags := make(map[string]string)
+	tags["type"] = "server"
+
+	acc.AddGauge("swap", fieldsG, tags)
+	acc.AddCounter("swap", fieldsC, tags)
 
 	return nil
 }

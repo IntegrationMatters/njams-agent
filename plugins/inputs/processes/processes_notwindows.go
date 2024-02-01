@@ -56,7 +56,11 @@ func (p *Processes) Gather(acc telegraf.Accumulator) error {
 		}
 	}
 
-	acc.AddGauge("processes", fields, nil)
+	// hard code njams type
+	tags := make(map[string]string)
+	tags["type"] = "server"
+
+	acc.AddGauge("processes", fields, tags)
 	return nil
 }
 

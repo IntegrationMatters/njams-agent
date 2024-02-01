@@ -115,6 +115,10 @@ func (c *CPUStats) Gather(acc telegraf.Accumulator) error {
 		if c.ReportActive {
 			fieldsG["usage_active"] = 100 * (active - lastActive) / totalDelta
 		}
+
+		// hard code njams type
+		tags["type"] = "server"
+		
 		acc.AddGauge("cpu", fieldsG, tags, now)
 	}
 
